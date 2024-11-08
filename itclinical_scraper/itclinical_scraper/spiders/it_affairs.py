@@ -6,28 +6,28 @@ class ItAffairsSpider(scrapy.Spider):
     start_urls = ["https://itclinical.com/it.php"]
 
     def parse(self, response):
-        # Seleciona todos os links nas seções de software
+        # Select all links in the software sections
         portfolio_links = response.css('a.portfolio-item::attr(href)').getall()
 
-        # Navega para cada link de produto
+        # Navigate to each product link
         for link in portfolio_links:
             yield response.follow(link, self.parse_section)
 
     def parse_section(self, response):
-        # Coleta o título da página
+        # Collects the page title
         title = response.css(
             'div.sixteen.floated.page-title h2::text').get().strip()
 
-        # Coleta a lista de funcionalidades
+        # Collect the list of features
         features = response.css('ul.check-list li::text').getall()
 
-        # Exibe o título e as features no console
+        # Displays the title and features on the console
         print(f"\n{'='*40}\n{title}\n{'='*40}")
         for feature in features:
             print(f"  - {feature.strip()}")
         print("\n")
 
-        # Envia os dados para o pipeline
+        # Sends data to the pipeline
         yield {
             'title': title,
             'features': [feature.strip() for feature in features]
