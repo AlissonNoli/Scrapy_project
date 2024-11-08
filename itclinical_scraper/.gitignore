@@ -1,0 +1,7 @@
+# Ignorar diretórios de cache do Python
+__pycache__/
+*.pyc
+
+# Ignorar outras pastas e arquivos desnecessários, se houver
+*.log
+*.csv
