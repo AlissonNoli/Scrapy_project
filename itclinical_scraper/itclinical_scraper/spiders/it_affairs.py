@@ -21,6 +21,11 @@ class ItAffairsSpider(scrapy.Spider):
         # Coleta a lista de funcionalidades
         features = response.css('ul.check-list li::text').getall()
 
+        # Exibe o título e as features no console
+        print(f"\n{title}\n")
+        for feature in features:
+            print(f"    {feature.strip()}")
+
         # Envia os dados para o pipeline
         yield {
             'title': title,
