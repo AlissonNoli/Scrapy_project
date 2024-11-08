@@ -11,7 +11,7 @@ Crawling: The spider starts by visiting the main page at https://itclinical.com/
 
 Data Extraction: For each product link, it navigates to the respective page and scrapes:
 
-Title: Extracted from the "<h2>" tag within the page-title div.
+Title: Extracted from the "h2" tag within the page-title div.
 Features: Extracted from the first list of checklist items on the page.
 Data Export: The extracted data (title and features) is saved to a CSV file (features.csv) using the pipeline defined in pipeline.py.
 
