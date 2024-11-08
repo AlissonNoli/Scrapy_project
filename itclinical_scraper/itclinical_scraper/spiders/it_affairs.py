@@ -22,9 +22,10 @@ class ItAffairsSpider(scrapy.Spider):
         features = response.css('ul.check-list li::text').getall()
 
         # Exibe o título e as features no console
-        print(f"\n{title}\n")
+        print(f"\n{'='*40}\n{title}\n{'='*40}")
         for feature in features:
-            print(f"    {feature.strip()}")
+            print(f"  - {feature.strip()}")
+        print("\n")
 
         # Envia os dados para o pipeline
         yield {

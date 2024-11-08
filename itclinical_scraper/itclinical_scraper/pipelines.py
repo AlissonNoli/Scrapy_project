@@ -17,5 +17,5 @@ class CsvExportPipeline:
 
     def process_item(self, item, spider):
         # Escreve cada item (título e features) no arquivo CSV
-        self.writer.writerow([item['title'], '; '.join(item['features'])])
+        self.writer.writerow([item['title'], '\n'.join(item['features'])])
         return item
