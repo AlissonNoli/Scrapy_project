@@ -21,6 +21,13 @@ class ItAffairsSpider(scrapy.Spider):
         # Coleta a lista de funcionalidades
         features = response.css('ul.check-list li::text').getall()
 
+        # Imprime o nome da seção
+        print(f"\n{title}\n")
+
+       # Armazena e imprime cada feature
+        features = [feature.strip() for feature in features]
+        print(f"Features extraídas para a seção '{title}': {features}")
+
         # Armazena os dados extraídos
         yield {
             "section": title,
