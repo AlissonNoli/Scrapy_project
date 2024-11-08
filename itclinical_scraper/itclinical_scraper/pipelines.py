@@ -3,7 +3,7 @@ import csv
 
 class CsvExportPipeline:
     def open_spider(self, spider):
-        # Opens the CSV file when the spider starts
+        # Open the CSV file when the spider starts
         self.file = open('features.csv', mode='w',
                          newline='', encoding='utf-8')
         self.writer = csv.writer(self.file)
@@ -12,7 +12,7 @@ class CsvExportPipeline:
         self.writer.writerow(['title', 'features'])
 
     def close_spider(self, spider):
-        # Closes the file when the spider finishes
+        # Close the file when the spider finishes
         self.file.close()
 
     def process_item(self, item, spider):
