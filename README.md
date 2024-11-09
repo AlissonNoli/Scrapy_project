@@ -23,7 +23,7 @@ Before running the scraper, make sure you have the necessary libraries installed
 1. Clone this repository:
 2. Install dependencies: pip install -r requirements.txt
 
-Usage
+### Usage
 To run the Scrapy spider:
 
 1. Navigate to the project directory where it_affairs.py is located:
