@@ -6,7 +6,7 @@ class ItAffairsSpider(scrapy.Spider):
     start_urls = ["https://itclinical.com/it.php"]
 
     def parse(self, response):
-        # Select all links in the software section using XPath
+        # Select all links in the software section
         portfolio_links = response.xpath(
             '//a[contains(@class, "portfolio-item")]/@href').getall()
 
@@ -18,15 +18,15 @@ class ItAffairsSpider(scrapy.Spider):
             yield response.follow(link, self.parse_section)
 
     def parse_section(self, response):
-        # Collect the page title using XPath
+        # Collect the page title
         title = response.xpath(
             '//div[contains(@class, "sixteen") and contains(@class, "floated") and contains(@class, "page-title")]/h2/text()').get().strip()
 
-        # Collect the first list of features (checklist items) using XPath
+        # Collect the first list of features (checklist items)
         features = response.xpath(
             '(//ul[contains(@class, "check-list")])[1]//li/text()').getall()
 
-        # Print the title and features to the console
+        # Print the title and features
         print(f"\n{title}\n")
         for feature in features:
             print(f"  - {feature.strip()}")
