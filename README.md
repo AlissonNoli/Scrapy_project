@@ -10,7 +10,7 @@ This is a web scraping project using **Scrapy** to collect data from the IT Clin
 1. **Crawling**: The spider starts by visiting the main page at [https://itclinical.com/it.php](https://itclinical.com/it.php) and extracts all the product section links.
    
 2. **Data Extraction**: For each product link, it navigates to the respective page and scrapes:
-   - **Title**: Extracted from the `<h2>` tag within the `page-title` div.
+   - **Title**: Extracted from the IT Affairs" section
    - **Features**: Extracted from the first list of checklist items on the page.
 
 3. **Data Export**: The extracted data (title and features) is saved to a CSV file (`features.csv`) using the pipeline defined in `pipeline.py`.
