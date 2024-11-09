@@ -10,6 +10,7 @@ class ItAffairsSpider(scrapy.Spider):
         portfolio_links = response.xpath(
             '//ul[@class="menu"]/li[2]/ul/li/a')
 
+        # Reverse the order of the links
         portfolio_links.reverse()
 
         # Navigate to each product link
