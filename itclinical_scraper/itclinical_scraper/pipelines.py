@@ -3,12 +3,12 @@ import csv
 
 class CsvExportPipeline:
     def open_spider(self, spider):
-        # Open the CSV file when the spider starts
+        # Open CSV file when the spider starts
         self.file = open('features.csv', mode='w',
                          newline='', encoding='utf-8')
         self.writer = csv.writer(self.file)
 
-        # Write the CSV header
+        # Write CSV header
         self.writer.writerow(['title', 'features'])
 
     def close_spider(self, spider):

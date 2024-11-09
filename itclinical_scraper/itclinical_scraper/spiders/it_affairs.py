@@ -10,7 +10,7 @@ class ItAffairsSpider(scrapy.Spider):
         portfolio_links = response.xpath(
             '//ul[@class="menu"]/li[2]/ul/li/a')
 
-        # Reverse the order of the links
+        # Reverse order of the links
         portfolio_links.reverse()
 
         # Navigate to each product link
@@ -19,14 +19,21 @@ class ItAffairsSpider(scrapy.Spider):
             title = link.xpath('text()').get().strip()
             url = link.xpath('@href').get()
 
-            # Follow the link to navigate to the product page
-            yield response.follow(url, self.parse_section, meta={'title': title})
+            # Follow link to navigate
+            yield response.follow(url, self.parse_section, meta={'link_title': title})
 
     def parse_section(self, response):
         # Get the title passed from the previous request
-        title = response.meta['title']
+        link_title = response.meta['link_title']
 
-        # Collect the first list of features (checklist items)
+        # Extract title from the page
+        product_title = response.xpath(
+            '//div[contains(@class, "sixteen floated page-title")]//h2/text()').get()
+
+        # If the title from the page is found, use it; otherwise, use the title passed from the previous request
+        title = product_title.strip() if product_title else link_title
+
+        # Collect the list of features
         features = response.xpath(
             '(//ul[contains(@class, "check-list")])[1]//li/text()').getall()
 
