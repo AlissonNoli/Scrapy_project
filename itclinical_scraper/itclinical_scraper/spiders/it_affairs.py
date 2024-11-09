@@ -6,21 +6,24 @@ class ItAffairsSpider(scrapy.Spider):
     start_urls = ["https://itclinical.com/it.php"]
 
     def parse(self, response):
-        # Select all links in the software section
+        # Select all links in the "IT Affairs" section
         portfolio_links = response.xpath(
-            '//a[contains(@class, "portfolio-item")]/@href').getall()
+            '//ul[@class="menu"]/li[2]/ul/li/a')
 
-        # Reverse the order of the links
         portfolio_links.reverse()
 
         # Navigate to each product link
         for link in portfolio_links:
-            yield response.follow(link, self.parse_section)
+            # Extract title and URL
+            title = link.xpath('text()').get().strip()
+            url = link.xpath('@href').get()
+
+            # Follow the link to navigate to the product page
+            yield response.follow(url, self.parse_section, meta={'title': title})
 
     def parse_section(self, response):
-        # Collect the page title
-        title = response.xpath(
-            '//div[contains(@class, "sixteen") and contains(@class, "floated") and contains(@class, "page-title")]/h2/text()').get().strip()
+        # Get the title passed from the previous request
+        title = response.meta['title']
 
         # Collect the first list of features (checklist items)
         features = response.xpath(
