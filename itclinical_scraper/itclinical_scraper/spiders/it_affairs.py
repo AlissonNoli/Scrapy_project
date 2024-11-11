@@ -17,9 +17,9 @@ class ItAffairsSpider(scrapy.Spider):
         for link in product_links:
             url = link.xpath('@href').get()
             # Follow the link to parse each section, using errback to handle potential errors
-            yield response.follow(url, self.parse_section, errback=self.handle_error)
+            yield response.follow(url, self.parse_section, errback=self.handle_request_error)
 
-    def handle_error(self, failure):
+    def handle_request_error(self, failure):
         # Log the URL and details if a request fails
         self.logger.error(f'Request failed: {failure.request.url}')
         self.logger.error(repr(failure))
