@@ -8,12 +8,14 @@ class CsvExportPipeline:
                          newline='', encoding='utf-8')
         self.writer = csv.writer(self.file)
 
-        # Write CSV header
+        #  Write CSV headers
         self.writer.writerow(['title', 'features'])
+        spider.logger.info("CSV file opened and header written.")
 
     def close_spider(self, spider):
         # Close the file when the spider finishes
         self.file.close()
+        spider.logger.info("CSV file closed.")
 
     def process_item(self, item, spider):
         # Write each item (title and features) to the CSV file
